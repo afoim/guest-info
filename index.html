@@ -4,108 +4,117 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>访客IP信息</title>
-  <style>
-    body {
-      font-family: sans-serif;
-      margin: 0;
-      padding: 0;
-      background: transparent;
-      color: #fff;
-      overflow: hidden;
-    }
-    .info-box { background: #222; padding: 16px 18px; border-radius: 8px; box-shadow: 0 1px 6px #0006; max-width: 370px; margin: 30px auto; font-size: 15px; }
-    .info-label { color: #aaa; margin-top: 10px; font-size: 13px; }
-    .info-value { word-break: break-all; margin-bottom: 10px; color: #fff; font-size: 15px; }
-    .info-address { color: #6cf; font-size: 13px; margin-bottom: 8px; }
-    .ua-label { color: #aaa; margin-top: 18px; font-size: 13px; }
-    .ua-value { color: #fff; font-size: 13px; word-break: break-all; }
-    .trace-label { color: #aaa; margin-top: 18px; font-size: 13px; }
-    .trace-value { color: #fff; font-size: 13px; word-break: break-all; }
-    .speed-value { font-weight: bold; font-size: 16px; margin-top: 2px; }
-    .speed-green { color: #4caf50; }
-    .speed-orange { color: #ff9800; }
-    .speed-red { color: #f44336; }
-    .speed-gray { color: #aaa; }
-    .ip-node-value {
-      word-break: break-all;
-      white-space: normal;
-      max-width: 100%;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      display: block;
-      cursor: pointer;
-    }
-  </style>
+  
 </head>
 <body>
-  <div class="info-box">
-    <div class="info-label">当前访问优先（IPv4/IPv6）：</div>
-    <div class="info-value" id="ip-priority">检测中...</div>
-    <div class="info-label">IPv4：</div>
-    <div class="info-value" id="ip-v4">检测中...</div>
-    <div class="info-address" id="ip-v4-addr"></div>
-    <div class="trace-label">IPv4溯源：</div>
-    <div class="trace-value" id="ip-trace">检测中...</div>
-    <div class="trace-label">WebRTC泄露检测：</div>
-    <div class="trace-value" id="webrtc-leak">检测中...</div>
-    <div class="info-label">IPv6：</div>
-    <div class="info-value" id="ip-v6">检测中...</div>
-    <div class="info-address" id="ip-v6-addr"></div>
-    <div class="ua-label">操作系统：</div>
-    <div class="ua-value" id="os-type">检测中...</div>
-    <div class="ua-label">浏览器UA：</div>
-    <div class="ua-value" id="ua"></div>
-    <div class="trace-label">常用网站测速：</div>
-    <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 10px;">
-      <div style="flex:1;min-width:80px;text-align:center;">
-        <div style="color:#aaa;">百度</div>
-        <div id="speed-baidu" class="speed-value">测速中...</div>
+    <style>
+        .card-demo {
+          font-family: sans-serif;
+          color: #fff;
+          background: transparent;
+        }
+        .card-demo .info-box {
+          background: #222;
+          padding: 16px 18px;
+          border-radius: 8px;
+          box-shadow: 0 1px 6px #0006;
+          max-width: 370px;
+          margin: 0 auto;
+          font-size: 15px;
+          box-sizing: border-box;
+        }
+        .card-demo .info-label { color: #aaa; margin-top: 10px; font-size: 13px; }
+        .card-demo .info-value { word-break: break-all; margin-bottom: 10px; color: #fff; font-size: 15px; }
+        .card-demo .info-address { color: #6cf; font-size: 13px; margin-bottom: 8px; }
+        .card-demo .ua-label { color: #aaa; margin-top: 18px; font-size: 13px; }
+        .card-demo .ua-value { color: #fff; font-size: 13px; word-break: break-all; }
+        .card-demo .trace-label { color: #aaa; margin-top: 18px; font-size: 13px; }
+        .card-demo .trace-value { color: #fff; font-size: 13px; word-break: break-all; }
+        .card-demo .ip-node-value {
+          word-break: break-all;
+          white-space: normal;
+          max-width: 100%;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          display: block;
+          cursor: pointer;
+        }
+        .card-demo .speed-value { font-weight: bold; font-size: 16px; margin-top: 2px; }
+        .card-demo .speed-green { color: #4caf50; }
+        .card-demo .speed-orange { color: #ff9800; }
+        .card-demo .speed-red { color: #f44336; }
+        .card-demo .speed-gray { color: #aaa; }
+      </style>
+  <div class="card-demo">
+    <div class="info-box">
+      <div class="info-label">当前访问优先（IPv4/IPv6）：</div>
+      <div class="info-value" id="ip-priority">检测中...</div>
+      <div class="info-label">IPv4：</div>
+      <div class="info-value" id="ip-v4">检测中...</div>
+      <div class="info-address" id="ip-v4-addr"></div>
+      <div class="trace-label">IPv4溯源：</div>
+      <div class="trace-value" id="ip-trace">检测中...</div>
+      <div class="trace-label">WebRTC泄露检测：</div>
+      <div class="trace-value" id="webrtc-leak">检测中...</div>
+      <div class="info-label">IPv6：</div>
+      <div class="info-value" id="ip-v6">检测中...</div>
+      <div class="info-address" id="ip-v6-addr"></div>
+      <div class="ua-label">操作系统：</div>
+      <div class="ua-value" id="os-type">检测中...</div>
+      <div class="ua-label">浏览器UA：</div>
+      <div class="ua-value" id="ua"></div>
+      <div class="trace-label">常用网站测速：</div>
+      <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 10px;">
+        <div style="flex:1;min-width:80px;text-align:center;">
+          <div style="color:#aaa;">百度</div>
+          <div id="speed-baidu" class="speed-value">测速中...</div>
+        </div>
+        <div style="flex:1;min-width:80px;text-align:center;">
+          <div style="color:#aaa;">Github</div>
+          <div id="speed-github" class="speed-value">测速中...</div>
+        </div>
+        <div style="flex:1;min-width:80px;text-align:center;">
+          <div style="color:#aaa;">Cloudflare</div>
+          <div id="speed-cloudflare" class="speed-value">测速中...</div>
+        </div>
+        <div style="flex:1;min-width:80px;text-align:center;">
+          <div style="color:#aaa;">Google</div>
+          <div id="speed-google" class="speed-value">测速中...</div>
+        </div>
       </div>
-      <div style="flex:1;min-width:80px;text-align:center;">
-        <div style="color:#aaa;">Github</div>
-        <div id="speed-github" class="speed-value">测速中...</div>
+      <div class="trace-label">节点IP测试：</div>
+      <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 6px;">
+        <div style="flex:1;min-width:120px;text-align:center;">
+          <div style="color:#aaa;">国内 IPv4</div>
+          <div id="node-itdog-v4-cm" class="ip-node-value">检测中...</div>
+        </div>
+        <div style="flex:1;min-width:120px;text-align:center;">
+          <div style="color:#aaa;">国内 IPv6</div>
+          <div id="node-itdog-v6-cm" class="ip-node-value">检测中...</div>
+        </div>
       </div>
-      <div style="flex:1;min-width:80px;text-align:center;">
-        <div style="color:#aaa;">Cloudflare</div>
-        <div id="speed-cloudflare" class="speed-value">测速中...</div>
+      <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 10px;">
+        <div style="flex:1;min-width:120px;text-align:center;">
+          <div style="color:#aaa;">港澳台 IPv4</div>
+          <div id="node-itdog-v4-over" class="ip-node-value">检测中...</div>
+        </div>
+        <div style="flex:1;min-width:120px;text-align:center;">
+          <div style="color:#aaa;">港澳台 IPv6</div>
+          <div id="node-itdog-v6-over" class="ip-node-value">检测中...</div>
+        </div>
+        <div style="flex:1;min-width:120px;text-align:center;">
+          <div style="color:#aaa;">海外 IPv4</div>
+          <div id="node-lvhai-v4" class="ip-node-value">检测中...</div>
+        </div>
+        <div style="flex:1;min-width:120px;text-align:center;">
+          <div style="color:#aaa;">海外 IPv6</div>
+          <div id="node-lvhai-v6" class="ip-node-value">检测中...</div>
+        </div>
       </div>
-      <div style="flex:1;min-width:80px;text-align:center;">
-        <div style="color:#aaa;">Google</div>
-        <div id="speed-google" class="speed-value">测速中...</div>
+      <div style="text-align:center;color:#888;font-size:13px;margin-top:18px;">
+          Powered By <a href="https://link.me/acofork" target="_blank" style="color:#6cf;text-decoration:none;">AcoFork</a>
       </div>
     </div>
-    <div class="trace-label">节点IP测试：</div>
-    <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 6px;">
-      <div style="flex:1;min-width:120px;text-align:center;">
-        <div style="color:#aaa;">国内 IPv4</div>
-        <div id="node-itdog-v4-cm" class="ip-node-value">检测中...</div>
-      </div>
-      <div style="flex:1;min-width:120px;text-align:center;">
-        <div style="color:#aaa;">国内 IPv6</div>
-        <div id="node-itdog-v6-cm" class="ip-node-value">检测中...</div>
-      </div>
-    </div>
-    <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 10px;">
-      <div style="flex:1;min-width:120px;text-align:center;">
-        <div style="color:#aaa;">港澳台 IPv4</div>
-        <div id="node-itdog-v4-over" class="ip-node-value">检测中...</div>
-      </div>
-      <div style="flex:1;min-width:120px;text-align:center;">
-        <div style="color:#aaa;">港澳台 IPv6</div>
-        <div id="node-itdog-v6-over" class="ip-node-value">检测中...</div>
-      </div>
-      <div style="flex:1;min-width:120px;text-align:center;">
-        <div style="color:#aaa;">海外 IPv4</div>
-        <div id="node-lvhai-v4" class="ip-node-value">检测中...</div>
-      </div>
-      <div style="flex:1;min-width:120px;text-align:center;">
-        <div style="color:#aaa;">海外 IPv6</div>
-        <div id="node-lvhai-v6" class="ip-node-value">检测中...</div>
-      </div>
-    </div>
-    <div style="text-align:center;color:#888;font-size:13px;margin-top:18px;">
-        Powered By <a href="https://link.me/acofork" target="_blank" style="color:#6cf;text-decoration:none;">AcoFork</a>
-      </div>
   </div>
   <script>
     document.getElementById('ua').textContent = navigator.userAgent;
